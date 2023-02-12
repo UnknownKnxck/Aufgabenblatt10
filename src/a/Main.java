@@ -1,50 +1,33 @@
 package a;
 
-import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.IOException;
 
 public class Main {
+    public static void main(String[] args) {
+        MyScanner myScanner = new MyScanner(new InputStreamReader(System.in));
+        try {
+            System.out.print("Enter a string: ");
+            String str = myScanner.nextLine();
+            System.out.println("You entered: " + str);
 
+            System.out.print("Enter an integer: ");
+            int num = myScanner.nextInt();
+            System.out.println("You entered: " + num);
 
-    public class CustomScanner {
-        private InputStreamReader reader;
+            System.out.print("Enter a double: ");
+            double d = myScanner.nextDouble();
+            System.out.println("You entered: " + d);
 
-        public CustomScanner() {
-            reader = new InputStreamReader(System.in);
-        }
-
-        public String readString() throws IOException {
-            StringBuilder sb = new StringBuilder();
-            int ch;
-            while ((ch = reader.read()) != '\n' && ch != -1) {
-                sb.append((char) ch);
-            }
-            return sb.toString();
-        }
-
-        public int readInt() throws IOException, NumberFormatException {
-            String input = readString();
-            try {
-                return Integer.parseInt(input);
-            } catch (NumberFormatException e) {
-                throw new NumberFormatException("Invalid input. Input must be an integer.");
-            }
-        }
-
-        public double readDouble() throws IOException, NumberFormatException {
-            String input = readString();
-            try {
-                return Double.parseDouble(input);
-            } catch (NumberFormatException e) {
-                throw new NumberFormatException("Invalid input. Input must be a double.");
-            }
-        }
-
-        public static class InvalidFormatException extends Exception {
-            public InvalidFormatException(String message) {
-                super(message);
-            }
+            System.out.print("Enter a MyClass (format: a,b): ");
+            MyScanner.MyClass myClass = myScanner.nextMyClass();
+            System.out.println("You entered: " + myClass);
+        } catch (IOException e) {
+            System.out.println("Error reading input: " + e.getMessage());
+        } catch (NumberFormatException e) {
+            System.out.println("Error parsing number: " + e.getMessage());
+        } catch (MyScanner.MyClassFormatException e) {
+            System.out.println("Error parsing MyClass: " + e.getMessage());
         }
     }
-
 }
